@@ -16,10 +16,21 @@ KEYBINDS = {
     ord('b'):blur,    
 }
 
+def blur_size(text:str)-> tuple[int,int]:
+    try:
+        blur = tuple(map(int(text.split(','))))
+        if  len(blur) != 2 or blur[0]%2==0 or blur[1]%2==0:
+            raise ValueError()
+    except ValueError:
+        print(f'Blur size must be given as INT,INT. Both ints must be odd. Value given {text}')
+        raise argparse.ArgumentError()
+
 def parse_arguments()-> argparse.Namespace:
     parser:argparse.ArgumentParser = argparse.ArgumentParser()
     parser.add_argument('-i', '--image_path', type=str, required=True, 
                         help='Path to image that will be processed')
+    parser.add_argument('-b', '--blur_range', type=blur_size, default=3,
+                        help='Size of blur')
     return parser.parse_args()
 
 
@@ -39,3 +50,5 @@ if __name__ == '__main__':
                 img = KEYBINDS[keycode](img)
             except KeyError:
                 print(f'Keycode {keycode} not supported')
+            except cv2.error as e:
+                print(f'Cv2 error -> {e}')
