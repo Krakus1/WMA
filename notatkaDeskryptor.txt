@@ -1,0 +1,8 @@
+Deskryptor:
+wyznaczamy kierunek najjasniejszy
+bierzemy pozostałe kierunki których wartość jasnośći jest >= 0.8 maks jasności
+liczymy średnią ważoną
+uzyskujemy kierunek
+obracamy macierz 
+spłaszczamy do postaci wektora
+uzyskujemy deskryptor
